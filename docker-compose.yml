@@ -1,25 +1,25 @@
 version: "3" 
 
 services: 
- web:
-  container_name: nginx1
-  ports: 
-   - "8080:80"
-  volumes:
-   - "vol2:/usr/share/nginx/html"
+
+ db:
+   image: mongo
+   container_name: mongo-db
+   ports:
+    - "27017:27017"
+
+# web:
+#  container_name: nginx1
+#  ports: 
+#   - "8080:80"
+#  volumes:
+#   - "vol2:/usr/share/nginx/html"
 #   volumen de host
 #   - "/home/criss/docker-images/docker-compose/volumen-de-host:/usr/share/nginx/html"
-  image: nginx  
-  networks:
-   - net-test
- db:
-   image: mysql:5.7
-   container_name: mysql
-   ports:
-    - "3307:3306"
-#   environment:
-#     - "MYSQL_ROOT_PASSWORD=1234" 
-   env_file: common.env
+#  image: nginx  
+#  networks:
+#   - net-test
+
 
 ##opcionales
 ##volumes:
