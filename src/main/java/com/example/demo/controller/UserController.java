@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.example.demo.dto.user.UserCreateDto;
-import com.example.demo.dto.user.UserGetDto;
+import com.example.demo.dto.user.UserDto;
 import com.example.demo.dto.user.UserUpdateDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -23,12 +23,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	public UserGetDto get(String id) {
-		UserGetDto userGetDto = convertToDto(userService.findById(id));
+	public UserDto get(String id) {
+		UserDto userGetDto = convertToDto(userService.findById(id));
 		return userGetDto;
 	}
 
-	public UserGetDto add(UserCreateDto userCreateDto) {
+	public UserDto add(UserCreateDto userCreateDto) {
 		User user = convertToEntity(userCreateDto);
 		user.setCreationDate(new Date());
 		return convertToDto(userService.save(user));
@@ -38,7 +38,7 @@ public class UserController {
 		userService.deleteById(id);
 	}
 
-	public UserGetDto update(String id, UserUpdateDto userUpdateDto) {
+	public UserDto update(String id, UserUpdateDto userUpdateDto) {
 		User user = userService.findById(id);
 		user.setName(userUpdateDto.getName());
 		user.setSurname(userUpdateDto.getSurname());
@@ -46,12 +46,12 @@ public class UserController {
 		return convertToDto(userService.save(user));
 	}
 
-	public List<UserGetDto> findAll() {
+	public List<UserDto> findAll() {
 		return userService.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
 	}
 
-	private UserGetDto convertToDto(User user) {
-		UserGetDto userGetDto = modelMapper.map(user, UserGetDto.class);
+	private UserDto convertToDto(User user) {
+		UserDto userGetDto = modelMapper.map(user, UserDto.class);
 		return userGetDto;
 	}
 
