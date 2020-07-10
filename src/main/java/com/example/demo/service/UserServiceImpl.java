@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.User;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -15,13 +16,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(User person) {
-		// TODO Auto-generated method stub
 		return personRepository.save(person);
 	}
-	
+
 	@Override
-	public User findById(String id) {	
-		return personRepository.findById(id).get();
+	public User findById(String id) throws UserNotFoundException {
+		return personRepository.findById(id).orElseThrow(UserNotFoundException::new);
 	}
 
 	@Override
@@ -30,15 +30,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByName(String name) {
-		//TODO: exception not found
-		return personRepository.findByName(name).get();
+	public User findByUsername(String username) throws UserNotFoundException {
+		return personRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
 	}
 
 	@Override
-	public void deleteById(String id) {
-		// TODO Auto-generated method stub
-		personRepository.deleteById(id);		
+	public void deleteById(String id) throws UserNotFoundException {
+		if (personRepository.existsById(id)) {
+			personRepository.deleteById(id);
+		} else {
+			throw new UserNotFoundException();
+		}
 	}
 
 }

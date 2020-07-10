@@ -9,4 +9,5 @@ public class ExceptionHandler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionHandler.class);
 
+	//UserNotFoundException
 }

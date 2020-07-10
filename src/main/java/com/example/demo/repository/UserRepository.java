@@ -8,6 +8,6 @@ import com.example.demo.entity.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
-	public Optional<User> findByName(String name);
+	public Optional<User> findByUsername(String username);
 	
 }

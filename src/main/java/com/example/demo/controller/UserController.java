@@ -10,6 +10,7 @@ import com.example.demo.dto.user.UserCreateDto;
 import com.example.demo.dto.user.UserDto;
 import com.example.demo.dto.user.UserUpdateDto;
 import com.example.demo.entity.User;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -23,7 +24,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	public UserDto get(String id) {
+	public UserDto get(String id) throws UserNotFoundException {
 		UserDto userGetDto = convertToDto(userService.findById(id));
 		return userGetDto;
 	}
@@ -34,11 +35,11 @@ public class UserController {
 		return convertToDto(userService.save(user));
 	}
 
-	public void delete(String id) {
+	public void delete(String id) throws UserNotFoundException {
 		userService.deleteById(id);
 	}
 
-	public UserDto update(String id, UserUpdateDto userUpdateDto) {
+	public UserDto update(String id, UserUpdateDto userUpdateDto) throws UserNotFoundException {
 		User user = userService.findById(id);
 		user.setName(userUpdateDto.getName());
 		user.setSurname(userUpdateDto.getSurname());

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.controller.UserController;
 import com.example.demo.dto.user.UserCreateDto;
 import com.example.demo.dto.user.UserUpdateDto;
+import com.example.demo.exception.UserNotFoundException;
 import com.example.demo.response.component.ResponseComponent;
 import com.example.demo.response.entity.Response;
 
@@ -33,7 +34,7 @@ public class UserRestController {
 
 	@ApiOperation(value = "Get user by id", notes = "")
 	@GetMapping("/users/{id}")
-	public ResponseEntity<Response> get(@PathVariable("id") String id) {
+	public ResponseEntity<Response> get(@PathVariable("id") String id) throws UserNotFoundException {
 		responseComponent.setPayload(userController.get(id));
 		return new ResponseEntity<Response>(responseComponent.getOutput(), HttpStatus.OK);
 	}
@@ -47,14 +48,14 @@ public class UserRestController {
 
 	@ApiOperation(value = "Delete user by id", notes = "")
 	@DeleteMapping("/users/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") String id) {
+	public ResponseEntity<Void> delete(@PathVariable("id") String id) throws UserNotFoundException {
 		userController.delete(id);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 
 	@ApiOperation(value = "Modify user by id", notes = "")
 	@PutMapping("/users/{id}")
-	public ResponseEntity<Response> update(@PathVariable("id") String id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
+	public ResponseEntity<Response> update(@PathVariable("id") String id, @Valid @RequestBody UserUpdateDto userUpdateDto) throws UserNotFoundException {
 		responseComponent.setPayload(userController.update(id, userUpdateDto));
 		return new ResponseEntity<Response>(responseComponent.getOutput(), HttpStatus.OK);
 	}
