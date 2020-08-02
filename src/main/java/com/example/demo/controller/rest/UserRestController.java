@@ -24,8 +24,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/api/v1")
 public class UserRestController {
-	// los controladores devulven dto y reciben dto, por lo tanto el model mapper s
-	// usa en el controller
+
 	@Autowired
 	private ResponseComponent responseComponent;
 	

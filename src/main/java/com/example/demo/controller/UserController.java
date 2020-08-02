@@ -16,8 +16,6 @@ import com.example.demo.service.UserService;
 @Controller
 public class UserController {
 
-	// // los controladores devulven dto y reciben dto, por lo tanto el model mapper
-	// s usa en el controller
 	@Autowired
 	private ModelMapper modelMapper;
 
