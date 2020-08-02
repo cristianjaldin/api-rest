@@ -18,7 +18,7 @@ public class ResponseComponent {
 	
 	public void loadError(int code, String message, String description) {
 		this.response.setCode(1);
-		this.response.setMessage("");
+		this.response.setMessage("see list of errors");
 		Error e = new Error(code,message,description);
 		this.response.getErrors().add(e);
 	}

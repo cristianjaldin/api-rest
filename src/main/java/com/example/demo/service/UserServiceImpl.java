@@ -12,32 +12,32 @@ import com.example.demo.repository.UserRepository;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserRepository personRepository;
+	private UserRepository userRepository;
 
 	@Override
 	public User save(User person) {
-		return personRepository.save(person);
+		return userRepository.save(person);
 	}
 
 	@Override
 	public User findById(String id) throws UserNotFoundException {
-		return personRepository.findById(id).orElseThrow(UserNotFoundException::new);
+		return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 	}
 
 	@Override
 	public List<User> findAll() {
-		return personRepository.findAll();
+		return userRepository.findAll();
 	}
 
 	@Override
 	public User findByUsername(String username) throws UserNotFoundException {
-		return personRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+		return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
 	}
 
 	@Override
 	public void deleteById(String id) throws UserNotFoundException {
-		if (personRepository.existsById(id)) {
-			personRepository.deleteById(id);
+		if (userRepository.existsById(id)) {
+			userRepository.deleteById(id);
 		} else {
 			throw new UserNotFoundException();
 		}
